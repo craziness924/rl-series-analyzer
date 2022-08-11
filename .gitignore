@@ -1,4 +1,6 @@
-./vscode
+.vscode
 ./bat
+__pycache__
 test
 run_analysis.bat
+
