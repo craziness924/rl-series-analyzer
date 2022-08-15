@@ -1,10 +1,14 @@
 import os
-import carball
-from carball.json_parser.game import Game
-from carball.analysis.analysis_manager import AnalysisManager
 import matplotlib.pyplot as plt
 import numpy as np
 import dateutil.parser
+
+import carball
+from carball.json_parser.game import Game
+from carball.analysis.analysis_manager import AnalysisManager
+
+from stats.stats.stat_manager import StatsManager
+from stats.events.event_manager import EventManager
 
 
 class Series():
@@ -14,6 +18,8 @@ class Series():
         self.series_path = series_path
         self.games = []
         self.parsed_replays = []
+        self.stats_manager = None
+        self.event_manager = None
 
     def analyze_series(self):
         print(f"Processing series at {self.series_path}!")

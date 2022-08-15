@@ -5,13 +5,7 @@ import os
 from series_analyzer.series import Series
 from season_analyzer.season import Season
 
-from output.output import write_game_stats_to_csv
-
-
 DEBUG_MODE = True
-
-
-
 
 def main(args):
     if DEBUG_MODE:
@@ -41,7 +35,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    if (not args.series) and (not args.season) and (not DEBUG_MODE):
+    if (not args.series) and (not args.season):
         print("No path entered. Exiting...")
         exit(1)
 
