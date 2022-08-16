@@ -38,5 +38,8 @@ if __name__ == "__main__":
     if (not args.series) and (not args.season):
         print("No path entered. Exiting...")
         exit(1)
+    elif (args.series) and (args.season):
+        print("Cannot process a series and season at the same time. Exiting...")
+        exit(1)
 
     main(args)

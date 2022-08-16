@@ -2,5 +2,5 @@
 # ex. create an event for a goal and name the scorers, assisters, time, location, and game it occured in
 
 class EventManager():
-    def __init__():
+    def __init__(self, series):
         raise NotImplementedError()
