@@ -1,7 +1,7 @@
 # will take numbers from the dataframe and protobuf and prepare them for output to csv. 
 # ex. calculate a player's average ping in a certain series and put it into a dict for output.py to use
 
-from carball import Game
+from carball.json_parser.game import Game
 
 from stats.stats.stats_list import StatsList
 

@@ -5,6 +5,8 @@ import os
 from series_analyzer.series import Series
 from season_analyzer.season import Season
 
+from stats.events.event_manager import EventManager
+
 DEBUG_MODE = True
 
 def main(args):
@@ -25,6 +27,15 @@ def main(args):
     elif (args.season):
         season = Season(args.season)
         season.analyze_season()
+
+        event_manager = EventManager()
+        for i, week in enumerate(season.weeks):
+            if week["series"]:
+                week["series"] = EventManager.calculate_events(week["series"])
+                pass
+                
+
+
     pass
 
 if __name__ == "__main__":
