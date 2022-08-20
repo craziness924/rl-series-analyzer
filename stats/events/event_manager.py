@@ -4,11 +4,20 @@
 from series_analyzer.series import Series
 from stats.events.event_list import StatsList
 
+
 class EventManager():
     @staticmethod
+    def _event_sort(x):
+        return x.time
+    @staticmethod
     def calculate_events(series: Series) -> Series:
-        game_events = StatsList.get_player_stats()
-
-        for event in game_events:
-            series = event.calculate_stat(series)
+        game_events = StatsList.get_game_events()
+        for game in series.games:
+            for event in game_events:
+                events = event.calculate_events(game)
+                for event in events:
+                    game.events.append(event)
+                    pass
+            if len(game.events) > 0:
+                game.events.sort(key=EventManager._event_sort)
         return series

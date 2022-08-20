@@ -4,7 +4,11 @@ from stats.events.events.goal import EventGoal
 class StatsList():
     @staticmethod
     def get_player_stats():
+        return []
+        
+    @staticmethod
+    def get_game_events():
         return [
-            EventGoal(), 
             EventDemo(),
+            EventGoal()
         ]

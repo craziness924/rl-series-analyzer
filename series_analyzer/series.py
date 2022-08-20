@@ -10,18 +10,25 @@ from carball.analysis.analysis_manager import AnalysisManager
 from series_analyzer.crazy_game import CrazyGame
 from series_analyzer.crazy_game import ReplayInfo
 
+DEBUG_MODE = False
 
 class Series():
     def __init__(self, series_path):
         if series_path is None:
             Exception("No series path found when creating series object!")
+
+        split = str.split(series_path, "\\")
+        self.name = split[len(split) - 1]
+
         self.series_path = series_path
-        self.games = []
+        self.games: list[CrazyGame] = []
         self.parsed_replays = []
-        self.events = None
         self.extra_stats = None
 
     def analyze_series(self):
+        """
+        DEBUG CONFIG, ONLY ANALYZES 1
+        """
         print(f"Processing series at {self.series_path}!")
 
         series_files = os.scandir(self.series_path)
@@ -32,7 +39,7 @@ class Series():
             print(f"No replays found for series at {self.series_path}")
 
         for i, replay in enumerate(self.parsed_replays, 1):
-            if i > 1:
+            if i > 1 and DEBUG_MODE:
                 continue
             game_path = f'{self.series_path}\game{i}'
             game_path_exists = os.path.exists(game_path)
@@ -40,21 +47,22 @@ class Series():
 
             # later when multiple files exist for analysis, we could check that each one exists and make them exist if they don't
             if not game_path_exists: 
-                #os.mkdir(f'{SERIES_PATH}\game{game_num}')
+                os.mkdir(game_path)
+
             # _json = carball.decompile_replay(f'{series_path}\{file}')
 
-                analysis = AnalysisManager(game=replay.game)
-                analysis.create_analysis(calculate_intensive_events=True)
-                
-                # with open(pts_path, 'wb') as f:
-                #     analysis.write_proto_out_to_file(file=f)
+            analysis = AnalysisManager(game=replay.game)
+            analysis.create_analysis(calculate_intensive_events=False)
+            
+            # with open(pts_path, 'wb') as f:
+            #     analysis.write_proto_out_to_file(file=f)
 
-                game = CrazyGame()
-                game.path = game_path
-                game.analysis = analysis
-                game.replay_info = replay
+            game = CrazyGame()
+            game.path = game_path
+            game.analysis = analysis
+            game.replay_info = replay
 
-                self.games.append(game)
+            self.games.append(game)
 
     def  _parse_replays(self, files):
         for file in files:
@@ -71,6 +79,8 @@ class Series():
                 replay_info = ReplayInfo(_json, game, game.datetime)
 
                 self.parsed_replays.append(replay_info)
+            if DEBUG_MODE:
+                break
         self.parsed_replays.sort(key=self._replay_sort)
 
     def _replay_sort(self, x):
