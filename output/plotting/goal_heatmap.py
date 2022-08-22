@@ -35,7 +35,7 @@ class GoalHeatmap():
 
     @staticmethod
     def _create_plot(data: 'list[(int, int)]', series: Series, game_num: int):
-        goal_image = open(f"{os.getcwd()}\\output\\plotting\\assets\\croppedgoal.png", mode="rb")
+        goal_image = open(f"{os.getcwd()}/output/plotting/assets/croppedgoal.png", mode="rb")
 
         if game_num is None:
             title = f"Goal locations for series {series.name}"
