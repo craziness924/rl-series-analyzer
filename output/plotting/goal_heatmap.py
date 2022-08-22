@@ -58,7 +58,7 @@ class GoalHeatmap():
             labelleft=False)
 
         for point in data:
-            plt.plot(point[0], point[1], "bo")
+            plt.plot(point[0], point[1], color="pink", marker="*")
 
         fig.tight_layout()
 

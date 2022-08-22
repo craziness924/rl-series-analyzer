@@ -1,8 +1,10 @@
+from carball.analysis.analysis_manager import AnalysisManager
+
 class CrazyGame():
     def __init__(self):
         self.path = None
-        self.analysis = None
-        self.replay_info = None
+        self.analysis: AnalysisManager = None
+        self.replay_info: ReplayInfo = None
         self.events = []
 
 class ReplayInfo():

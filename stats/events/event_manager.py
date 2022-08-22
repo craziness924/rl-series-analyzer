@@ -4,6 +4,7 @@
 from series_analyzer.series import Series
 from stats.events.event_list import StatsList
 
+from google.protobuf.json_format import _Printer
 
 class EventManager():
     @staticmethod
@@ -13,6 +14,10 @@ class EventManager():
     def calculate_events(series: Series) -> Series:
         game_events = StatsList.get_game_events()
         for game in series.games:
+            #TODO: use js, the json representation of the protobuf
+            printer = _Printer()
+            js = printer._MessageToJsonObject(game.analysis.protobuf_game)
+
             for event in game_events:
                 events = event.calculate_events(game)
                 for event in events:

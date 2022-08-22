@@ -23,7 +23,7 @@ class Series():
         self.series_path = series_path
         self.games: list[CrazyGame] = []
         self.parsed_replays = []
-        self.extra_stats = None
+        # self.extra_stats = None
 
     def analyze_series(self):
         """
@@ -44,7 +44,6 @@ class Series():
             game_path = f'{self.series_path}\game{i}'
             game_path_exists = os.path.exists(game_path)
 
-
             # later when multiple files exist for analysis, we could check that each one exists and make them exist if they don't
             if not game_path_exists: 
                 os.mkdir(game_path)
@@ -53,6 +52,9 @@ class Series():
 
             analysis = AnalysisManager(game=replay.game)
             analysis.create_analysis(calculate_intensive_events=False)
+
+            f = open(f"{game_path}\\output.json", mode="w")
+            analysis.write_json_out_to_file(f)
             
             # with open(pts_path, 'wb') as f:
             #     analysis.write_proto_out_to_file(file=f)
@@ -72,7 +74,7 @@ class Series():
 
             if extension[1] == ".replay":
                 _json = carball.decompile_replay(replay_path=file.path)
-
+                
                 game = Game()
                 game.initialize(loaded_json=_json)
 
