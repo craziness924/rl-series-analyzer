@@ -1,6 +1,8 @@
 from series_analyzer.series import Series
 from stats.events.events.goal import Goal
 
+from util.plot_util import Point
+
 from carball.analysis.simulator.map_constants import GOAL_X, GOAL_Z
 
 import matplotlib.pyplot as plt
@@ -15,13 +17,15 @@ class GoalHeatmap():
 
         for i, game in enumerate(series.games, 1):
             game_points = []
+            colors = []
             for event in game.events:
                 if isinstance(event, Goal):
-                    if event.team == 1:
-                        point = (-event.position.x, event.position.z)
+                    e: Goal = event
+                    if e.team == 1:
+                        point = Point(-e.position.x, e.position.z, "#FFC300", "o")
                     else:
-                        point = (event.position.x, event.position.z)
-
+                        point = Point(e.position.x, e.position.z, "#00FF11", "o")
+                    
                     game_points.append(point)
                     series_points.append(point)
 
@@ -34,7 +38,7 @@ class GoalHeatmap():
         
 
     @staticmethod
-    def _create_plot(data: 'list[(int, int)]', series: Series, game_num: int):
+    def _create_plot(data: 'list[Point]', series: Series, game_num: int):
         goal_image = open(f"{os.getcwd()}\\output\\plotting\\assets\\croppedgoal.png", mode="rb")
 
         if game_num is None:
@@ -58,8 +62,9 @@ class GoalHeatmap():
             labelleft=False)
 
         for point in data:
-            plt.plot(point[0], point[1], color="pink", marker="*")
+            plt.plot(point.x, point.y, color=point.color, marker=point.marker)
 
+        plt.legend()
         fig.tight_layout()
 
         return plt      
