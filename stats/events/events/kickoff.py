@@ -1,17 +1,10 @@
 from series_analyzer.crazy_game import CrazyGame
-from util.vector import Vector3
 
-class Demo():
+class Kickoff():
     def __init__(self):
         self.time = None
-        self.attacker = None
-        self.attacker_vel = None
-        self.victim = None
-        self.victim_vel = None
 
-        self.position: Vector3
-
-class EventDemo(): # insert class into event_list.py in the correct category
+class EventKickoff():
     @staticmethod
     def calculate_events(game: CrazyGame, protobuf_json) -> list:
         """
@@ -27,4 +20,6 @@ class EventDemo(): # insert class into event_list.py in the correct category
         events = []
         
 
+        for kickoff in protobuf_json["gameStats"]["kickoffStats"]:
+            pass
         return events

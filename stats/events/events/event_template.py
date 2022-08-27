@@ -1,17 +1,10 @@
 from series_analyzer.crazy_game import CrazyGame
-from util.vector import Vector3
 
-class Demo():
+class NameOfEvent():
     def __init__(self):
-        self.time = None
-        self.attacker = None
-        self.attacker_vel = None
-        self.victim = None
-        self.victim_vel = None
+        self.time = None    # required to sort events after we gather all of them 
 
-        self.position: Vector3
-
-class EventDemo(): # insert class into event_list.py in the correct category
+class EventName(): # insert class into event_list.py in the correct category
     @staticmethod
     def calculate_events(game: CrazyGame, protobuf_json) -> list:
         """
