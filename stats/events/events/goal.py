@@ -25,7 +25,7 @@ class EventGoal():
         return x["dist"]
 
     @staticmethod
-    def calculate_events(game: CrazyGame) -> list:
+    def calculate_events(game: CrazyGame, protobuf_json) -> list:
         events = []
         # TODO: make events specific for each game
         for goal in game.analysis.game.goals:
