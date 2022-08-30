@@ -7,6 +7,7 @@ from util.point import Point
 def test_plots(args):
     if (args.season):
         raise TypeError("Seasons are unsupported by plot tester.")
+        
     mpl_outputs = OutputList.get_plotting_outputs()
 
     for plot in mpl_outputs:

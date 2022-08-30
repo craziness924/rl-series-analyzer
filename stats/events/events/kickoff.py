@@ -1,6 +1,14 @@
 from series_analyzer.crazy_game import CrazyGame
 from util.vector import Vector3
 
+from carball.json_parser.player import Player   
+
+def team_from_player_id(player_id: str, players: 'list[Player]'):
+    for player in players:
+        if player.online_id == player_id:
+            return (int(player.team.is_orange))
+    raise ValueError("Couldn't find player team from id!")
+
 class KickoffPlayer():
     def __init__(self):
         self.id: str = None
@@ -9,6 +17,8 @@ class KickoffPlayer():
 
         self.player_position: Vector3 = None
         self.starting_position: Vector3 = None
+
+        self.team: int = None
 
         self.first_touch: bool = None
 
@@ -22,6 +32,8 @@ class Kickoff():
 
         self.kickoffGoal: float = None # time in seconds until the next goal. is None if there's no goal after the kickoff
         self.players: 'list[KickoffPlayer]' = []
+
+        self.first_touch_team: int = None
 
 class EventKickoff():
     @staticmethod
@@ -48,6 +60,7 @@ class EventKickoff():
             kickoffInfo.time_to_touch = kickoff["touchTime"]
 
             kickoffInfo.type = kickoff["type"]
+            
 
             if "kickoffGoal" in kickoff_touch:
                 kickoffInfo.kickoffGoal = kickoff_touch["kickoffGoal"]
@@ -64,7 +77,13 @@ class EventKickoff():
                 starting_position = player["startPosition"]
                 kickoffPlayer.starting_position = Vector3(starting_position["posX"], player_position["posY"], player_position["posZ"])
                 
-                kickoffPlayer.first_touch = (kickoffPlayer.id == kickoff_touch["firstTouchPlayer"]["id"])
+                kickoffPlayer.team = team_from_player_id(kickoffPlayer.id, game.analysis.game.players)
+
+                if (kickoffPlayer.id == kickoff_touch["firstTouchPlayer"]["id"]):
+                    kickoffPlayer.first_touch = True
+                    kickoffInfo.first_touch_team = kickoffPlayer.team   
+                else:
+                    kickoffPlayer.first_touch = False
 
                 kickoffInfo.players.append(kickoffPlayer)
             events.append(kickoffInfo)
