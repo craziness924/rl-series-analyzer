@@ -3,6 +3,7 @@ import sys
 import os
 
 from tests.test_plots import test_plots
+from tests.test_csv import test_csv
 from series_analyzer.series import Series
 from season_analyzer.season import Season
 
@@ -48,8 +49,13 @@ if __name__ == "__main__":
 
     parser.add_argument("--series", type=str, required=False, help="The path to the series to analyze. Optional.")
     parser.add_argument("--season", type=str, required=False, help="The path to the season to analyze. Optional.")
+    
     parser.add_argument("--test_plots", required=False, action="store_true", help="Uses saved points from previous analysis, shows plots, then exits.")
     parser.add_argument("--save_points", required=False, action="store_true", help="Saves points when making plots.")
+    
+    parser.add_argument("--json", required=False, action="store_true", help="Pass this argument to save protobuf json.")
+    parser.add_argument("--test_json_stats", required=False, action="store_true", help="Uses previously saved protobuf json to generate basic stats.")
+    
     parser.add_argument("-no_output", required=False, action="store_true", help="Pass this argument to prevent any output from the program.")
 
     args = parser.parse_args()
@@ -63,5 +69,7 @@ if __name__ == "__main__":
     
     if (args.test_plots):
         test_plots(args)
+    elif (args.test_json_stats):
+        test_csv(args)
     else:
         main(args)

@@ -8,5 +8,8 @@ class OutputManager():
         csv_outputs = OutputList.get_csv_outputs()
         mpl_outputs = OutputList.get_plotting_outputs()
 
-        for output in mpl_outputs:
-            output.output_plot(series, save_points)
+        for plot in mpl_outputs:
+            plot.output_plot(series, save_points)
+
+        for csv in csv_outputs:
+            csv.output_csv(series, save_points)
