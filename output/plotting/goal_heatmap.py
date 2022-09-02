@@ -23,7 +23,7 @@ class GoalHeatmap():
                 if event.team == 1:
                     point = Point(-event.position.x, event.position.z, color="orange", marker="o")
                 else:
-                    point = Point(-event.position.x, event.position.z, color="blue", marker="o")
+                    point = Point(-event.position.x, event.position.z, color="#4deaff", marker="o")
 
                 points.append(point)
         return points

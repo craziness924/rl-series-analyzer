@@ -13,17 +13,6 @@ from output.output_manager import OutputManager
 DEBUG_MODE = True
 
 def main(args):
-    if DEBUG_MODE:
-        series_path = args.series or f'{os.getcwd()}\\Test\\IGL 2022 Winter Week 4' 
-    else:
-        arglen = len(sys.argv)
-        isSingleReplay = os.path.isfile(sys.argv[1]) and arglen == 2
-        if  (isSingleReplay) or (os.path.isdir(sys.argv[1])):
-            series_path = sys.argv[1]
-        else:
-            print("Exiting! Please put replays together in a folder before attempting to process together.") # sus
-            sys.exit(1)
-
     output_manager = OutputManager()
     if (args.series):
         series = Series(args.series)
