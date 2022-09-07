@@ -32,7 +32,7 @@ def test_plots(args):
                 for line in f.readlines():
                     line = line.replace("\n", "")
                     point_data = line.split(" ")
-                    point = Point(float(point_data[0]), float(point_data[1]), point_data[2], point_data[3])
+                    point = Point(float(point_data[0]), float(point_data[1]), point_data[2], point_data[3], point_data[4])
 
                     data.append(point)
                     series_data.append(point)

@@ -12,6 +12,12 @@ import os
 
 class GoalHeatmap():
     @staticmethod
+    def save_points(file_name: str, points: 'list[Point]'):
+        with open(file_name, mode="w") as f:
+            for point in points:
+                f.write(f"{str(point)}\n")
+
+    @staticmethod
     def get_debug_filename():
         return "goal_heatmap_points.txt"
 
@@ -37,28 +43,20 @@ class GoalHeatmap():
 
             for point in game_points:
                 series_points.append(point)
+            
+            if save_points:
+                GoalHeatmap.save_points(f"{game.path}\\{GoalHeatmap.get_debug_filename()}", game_points)
 
-            if (save_points):
-                with open(f"{game.path}\\{GoalHeatmap.get_debug_filename()}", mode="w") as f:
-                    for point in series_points:
-                        f.write(f"{str(point)}\n")
-                        
             plt = GoalHeatmap._create_plot(game_points, series, i)
             plt.savefig(f"{game.path}\\goal_heatmap.png")
 
         plt = GoalHeatmap._create_plot(series_points, series, None)
         plt.savefig(f"{series.series_path}\\goal_heatmap.png")
-
-        if (save_points):
-            with open(f"{series.series_path}\\{GoalHeatmap.get_debug_filename()}", mode="w") as f:
-                for point in series_points:
-                    f.write(f"{str(point)}\n")
-        pass
         
 
     @staticmethod
     def _create_plot(data: 'list[Point]', series: Series = None, game_num: int = None):
-        goal_image = open(f"{os.getcwd()}\\output\\plotting\\assets\\croppedgoal.png", mode="rb")
+        goal_image = open(f"{os.getcwd()}/output/plotting/assets/croppedgoal.png", mode="rb")
 
         if series is not None:  
             if game_num is None:

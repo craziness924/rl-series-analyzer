@@ -1,5 +1,6 @@
 
 from output.plotting.goal_heatmap import GoalHeatmap
+from output.plotting.kickoffs import KickoffPlot
 
 class OutputList():
     @staticmethod
@@ -8,5 +9,6 @@ class OutputList():
     @staticmethod
     def get_plotting_outputs():
         return [
-            GoalHeatmap()
+            GoalHeatmap(),
+            KickoffPlot()
         ]
