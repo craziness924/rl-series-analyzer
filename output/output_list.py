@@ -1,5 +1,5 @@
 from output.csv.basic_stats import BasicStats
-from output.plotting.goal_heatmap import GoalHeatmap
+from output.plotting.shot_attempts.goal_heatmap import GoalHeatmap
 
 class OutputList():
     @staticmethod

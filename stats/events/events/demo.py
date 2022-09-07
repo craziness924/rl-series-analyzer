@@ -1,13 +1,16 @@
 from series_analyzer.crazy_game import CrazyGame
 from util.vector import Vector3
 
+from carball.json_parser.player import Player
+
 class Demo():
     def __init__(self):
-        self.time = None
-        self.attacker = None
-        self.attacker_vel = None
-        self.victim = None
-        self.victim_vel = None
+        self.time: int = None
+
+        self.attacker: Player = None
+        self.attacker_vel: Vector3 = None
+        self.victim: Player = None
+        self.victim_vel: Vector3 = None
 
         self.position: Vector3
 
@@ -26,5 +29,26 @@ class EventDemo(): # insert class into event_list.py in the correct category
         """
         events = []
         
+        for demo in game.analysis.game.demos:
+            demoInfo = Demo()
 
+            demoInfo.time = demo["frame_number"]
+            demoInfo.attacker = demo["attacker"]
+            demoInfo.victim = demo["victim"]
+
+            attacker_vel = demo["attacker_vel"]
+            demoInfo.attacker_vel = Vector3(attacker_vel[0], attacker_vel[1], attacker_vel[2])
+
+            victim_vel = demo["victim_vel"]
+            demoInfo.victim_vel = Vector3(victim_vel[0], victim_vel[1], victim_vel[2])
+
+            victim_df = demoInfo.victim.data
+
+            victim_pos_x = victim_df.pos_x[demoInfo.time]
+            victim_pos_y = victim_df.pos_y[demoInfo.time]
+            victim_pos_z = victim_df.pos_z[demoInfo.time]
+            
+            demoInfo.position = Vector3(victim_pos_x, victim_pos_y, victim_pos_z)
+            
+            events.append(demoInfo)
         return events
