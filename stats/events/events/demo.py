@@ -42,13 +42,13 @@ class EventDemo(): # insert class into event_list.py in the correct category
             victim_vel = demo["victim_vel"]
             demoInfo.victim_vel = Vector3(victim_vel[0], victim_vel[1], victim_vel[2])
 
-            victim_df = demoInfo.victim.data
+            attacker_df = demoInfo.attacker.data.loc[demoInfo.time]
 
-            victim_pos_x = victim_df.pos_x[demoInfo.time]
-            victim_pos_y = victim_df.pos_y[demoInfo.time]
-            victim_pos_z = victim_df.pos_z[demoInfo.time]
+            attacker_pos_x = attacker_df.pos_x
+            attacker_pos_y = attacker_df.pos_y
+            attacker_pos_z = attacker_df.pos_z
             
-            demoInfo.position = Vector3(victim_pos_x, victim_pos_y, victim_pos_z)
+            demoInfo.position = Vector3(attacker_pos_x, attacker_pos_y, attacker_pos_z)
             
             events.append(demoInfo)
         return events
