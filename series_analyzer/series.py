@@ -10,7 +10,7 @@ from carball.analysis.analysis_manager import AnalysisManager
 from series_analyzer.crazy_game import CrazyGame
 from series_analyzer.crazy_game import ReplayInfo
 
-DEBUG_MODE = True
+DEBUG_MODE = False
 
 class Series():
     def __init__(self, series_path):

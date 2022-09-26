@@ -9,7 +9,7 @@ from series_analyzer.crazy_game import CrazyGame
 
 from google.protobuf.json_format import _Printer
 
-game_schema = ["Player", "Goals", "Assists", "Points (g+a)", "Saves", "Shots", "Shot%", "Demos", "Demoed"]
+game_schema = ["Player", "Games", "Goals", "Assists", "Points (g+a)", "Saves", "Shots", "Shot%", "Demos", "Demoed"]
 series_schema = ["Player", "Games", "Goals", "Assists", "Points (g+a)", "Saves", "Shots", "Shot%", "Demos", "Demoed"]
 
 class BasicStats():
@@ -70,7 +70,7 @@ class BasicStats():
             except KeyError:
                 pass
 
-            df.loc[len(df.index)] = [player_name, player_goals, player_assists, player_goals + player_assists, player_saves,
+            df.loc[len(df.index)] = [player_name, 1, player_goals, player_assists, player_goals + player_assists, player_saves,
                                     player_shots, 0.0, player_demos, player_demoed]
 
         df.set_index("Player", inplace=True)

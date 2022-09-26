@@ -45,7 +45,7 @@ if __name__ == "__main__":
     parser.add_argument("--json", required=False, action="store_true", help="Pass this argument to save protobuf json.")
     parser.add_argument("--test_json_stats", required=False, action="store_true", help="Uses previously saved protobuf json to generate basic stats.")
     
-    parser.add_argument("-no_output", required=False, action="store_true", help="Pass this argument to prevent any output from the program.")
+    parser.add_argument("--no_output", required=False, action="store_true", help="Pass this argument to prevent any output from the program.")
 
     args = parser.parse_args()
 
